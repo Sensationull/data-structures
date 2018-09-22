@@ -1,45 +1,35 @@
 var LinkedList = function() {
   var list = {};
-  list.head = Node(null);
-  list.tail = Node(null);
+  list.head = null;
+  list.tail = null;
 
   list.addToTail = function(value) {
-    list[value] = Node(value);
-    if (list.head.value === null && list.head.next === null) {
-      list.head.value = list[value].value;
-      list.tail.value = list[value].value;
-    } else if (list.head.next === null) {
-      list.tail.value = list[value].value;
-      list.head.next = list.tail.value;
+    var newNode = Node(value);
+    if (list.head === null) {
+      list.head = list.tail = newNode;
     } else {
-      list.tail = list[value];
+      list.tail.next = newNode;
+      list.tail = newNode;
     }
   };
-  
+
   list.removeHead = function() {
-    if (list.head.value === null) {
-      return null;
-    } else if (list.head.next === null) {
-      var headCurrent = list.head.value;
-      var nullNode = Node(null);
-      list.head = nullNode;
-      list.tail = nullNode;
-      return headCurrent;
-    } else {
-      var headCurrent = list.head.value;
-      delete list[list.head.value];
-      list.head.value = list.head.next;
-      return headCurrent;
-    }
+    var lastHead = list.head;
+    list.head = list.head.next;
+    return lastHead.value;
   };
 
   list.contains = function(target) {
-    for (var key in list) {
-      if (list[key].value === target) {
+    var helper = function(node) {
+      if (node.value === target) {
         return true;
+      } else if (node.next === null) {
+        return false;
+      } else {
+        return helper(node.next);
       }
-    }
-    return false;
+    };
+    return helper(list.head);
   };
 
   return list;
@@ -56,7 +46,7 @@ var Node = function(value) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
- * addToTail = O()
- * removeHead = O()
- * contains = O()
+ * addToTail = O(1) - constant
+ * removeHead = O(1) - constant
+ * contains = O(n) - linear
  */
