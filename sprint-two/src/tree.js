@@ -19,7 +19,7 @@ treeMethods.contains = function(target) {
     if (node.value === target) {
       return true;
     }
-    if (node.value !== target && node.children) {
+    if (node.children) {
       for (var i = 0; i < node.children.length; i++) {
         if (helper(node.children[i])) {
           return true;
