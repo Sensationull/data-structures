@@ -35,6 +35,14 @@ describe('linkedList', function() {
     linkedList.addToTail(4);
     expect(linkedList.removeHead()).to.equal(4);
   });
+  
+  it('should have a different value for head after removeHead is called', function() {
+    linkedList.addToTail(4);
+    linkedList.addToTail(5);
+    linkedList.addToTail(6);
+    linkedList.removeHead();
+    expect(linkedList.head.value).to.equal(5);
+  });
 
   it('should contain a value that was added', function() {
     linkedList.addToTail(4);

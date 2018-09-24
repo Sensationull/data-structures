@@ -73,4 +73,8 @@ describe('hashTable', function() {
     hashTable.remove('Mr.');
     expect(hashTable._limit).to.equal(8);
   });
+  
+  it('should return undefined if retrieved value is not found', function() {
+    expect(hashTable.retrieve('Alex')).to.be.undefined;
+  });
 });
